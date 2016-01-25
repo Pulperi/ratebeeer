@@ -5,8 +5,8 @@ class BreweriesControllerTest < ActionController::TestCase
     @brewery = breweries(:one)
   end
 
-  test "should get index" do
-    get :index
+  test "should get index.html.erb" do
+    get :'index.html.erb'
     assert_response :success
     assert_not_nil assigns(:breweries)
   end

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails ratebeeer: development" uuid="4e5cf0b0-3530-4b6a-b57d-eef9d3f63d7a">
+      <auth-required>false</auth-required>
+    </data-source>
+    <data-source name="Rails ratebeeer: test" uuid="1d9791eb-d48d-4d85-a49e-0f38f0601dfd">
+      <auth-required>false</auth-required>
+    </data-source>
+  </component>
+</project>
