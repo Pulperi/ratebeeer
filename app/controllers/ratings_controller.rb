@@ -11,17 +11,19 @@ class RatingsController < ApplicationController
 
   def create
     @rating = Rating.new(rating_params)
-    @rating.save
-    redirect_to ratings_path
+    if @rating.save
+      current_user.ratings << @rating
+      redirect_to current_user
+    else
+      @beers = Beer.all
+      render :new
+    end
   end
 
   def destroy
-    @rating = Rating.find_by id:params[:id]
-    @rating.destroy
-    respond_to do |format|
-      format.html { redirect_to ratings_url, notice: 'Rating was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    rating = Rating.find_by id:params[:id]
+    rating.destroy if current_user == rating.user
+    redirect_to :back
   end
 
   private

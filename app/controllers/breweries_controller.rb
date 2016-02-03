@@ -65,7 +65,12 @@ class BreweriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brewery
-      @brewery = Brewery.find(params[:id])
+      begin
+        @brewery = Brewery.find(params[:id])
+      rescue => ex
+        logger.error ex.message
+        redirect_to breweries_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
