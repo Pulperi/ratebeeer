@@ -1,3 +1,0 @@
-== README
-
-https://lit-dusk-15726.herokuapp.com/
