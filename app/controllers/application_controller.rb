@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
     User.find(session[:user_id])
   end
   def clear_current_user
-    # byebug
     session.clear
+  end
+  def ensure_that_signed_in
+    redirect_to signin_path, notice:'you should be signed in' if not current_user
   end
 end
