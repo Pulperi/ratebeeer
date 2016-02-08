@@ -22,4 +22,31 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def favorite_beer
+    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
+    ratings.order(score: :desc).limit(1).first.beer
+  end
+
+  def favorite_style
+    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
+    styles_with_average_ratings.max_by {|k, v| v}.first
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?  # palautetaan nil jos reittauksia ei ole
+    breweries_with_average_ratings.max_by {|k, v| v}.first
+  end
+
+  # Helper methods
+
+  def styles_with_average_ratings
+    hash = ratings.group_by {|r| r.beer.style}
+    hash.update(hash) {|k, v| v.map{|r| r.score}.sum.to_f/v.count}
+  end
+
+  def breweries_with_average_ratings
+    hash = ratings.group_by {|r| r.beer.brewery}
+    hash.update(hash) {|k, v| v.map{|r| r.score}.sum.to_f/v.count}
+  end
 end

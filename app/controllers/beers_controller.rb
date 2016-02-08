@@ -1,5 +1,6 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
+  before_action :set_helpers, only: [:new, :edit, :create]
 
   # GET /beers
   # GET /beers.json
@@ -15,12 +16,10 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
-    set_helpers
   end
 
   # GET /beers/1/edit
   def edit
-    set_helpers
   end
 
   # POST /beers
@@ -33,7 +32,6 @@ class BeersController < ApplicationController
         format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: @beer }
       else
-        set_helpers
         format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end

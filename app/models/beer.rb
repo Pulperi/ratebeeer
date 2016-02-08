@@ -2,6 +2,7 @@ class Beer < ActiveRecord::Base
   include RatingAverage
 
   validates :name, uniqueness: false, length: { minimum: 1 }
+  validates :style, uniqueness: false, length: { minimum: 1 }
 
   belongs_to :brewery
   has_many :ratings, dependent: :destroy

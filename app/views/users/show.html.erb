@@ -21,17 +21,20 @@
       Has made <%= pluralize(@user.ratings.count, 'rating', 'ratings') %>, average <%= number_with_precision @user.average_rating, :precision => 2 %>
     </p>
     <p>
-      <strong>Ratings</strong>
-      <ul>
+      Based on his ratings <%= @user.favorite_style %> is his favorite kind of beer and <%= @user.favorite_brewery.name %> is his favorite brewery.
+    </p>
+    <p>
+    <strong>Ratings</strong>
+    <ul>
         <% @user.ratings.each do |rating| %>
-            <li>
-              <%= rating %>
-              <% if @user == current_user %>
+          <li>
+            <%= rating %>
+            <% if @user == current_user %>
                 <%= link_to 'delete', rating, method: :delete , data: { confirm: 'Are you sure?' } %>
-              <% end %>
-            </li>
-        <% end %>
-      </ul>
+            <% end %>
+          </li>
+      <% end %>
+    </ul>
     </p>
   <% end %>
 </p>
