@@ -1,10 +1,15 @@
 language: ruby
-
 rvm:
- - 2.3.0
-
+- 2.3.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: Dp6tRdv2oc8ArSQu4f668L8HJyRX7alRSvLuC1XglHdpMqKPDKW9i21J3Ro4QV1m9yEo9cfH1wpkyRGg9GG4P3N11jhgs/0AHGLB0HTTW9CluBtIw8PkmHA2QYwAbsnytcxiMsKMUefUaMofOpOoBYdFsKRClzbrqC+OVhSPTKJYNUzFkMfMlrHN/KfAXxrIteXt6ZgADWdWZ7kWiqRzbAGF8tCwhSke+xEpRiZ+cogkzLqvP1ztyfheXOnq2acZRGgULcXLOeZ6z82uyvoeRYrlqkbPg/IS4kpwg5+eXNP+mMUJiy585hbwPPTbKEQn8ek6vkMyVVGyxLdNSmperFNaDDAVK9N10ir8knMTvASUWzjCVp4+IMf+hihg7DeUoJ9V9p+Uipz4N1DwnYShXlFyzHSmf+3iWYfxeOamwrC4QdeAIx3NpryuevlbtXS0TMdN3idsLOmUzQtziWtm/OmmkoxJ/+0w8HMsRLdXoF+t4DRyBBhtIAMKS1NPYxkiKWlK6rLOJxgfZ39DyakS6kzHBOLakf8QfCyGDT7I9+4p9aMK7IANZUazTAFtaGkUSvafJmmxoF3cxpMhkF8OWczuM4GXJi7W+WdCS+aoFCMn20hup+JIbzUb78l20pyyv//QQ1l4MVvfd8xTJTHrE22aXZMV7tDs2PYlmy1iuQc=
+  app: lit-dusk-15726
+  on:
+    repo: Pulperi/ratebeeer
