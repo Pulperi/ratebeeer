@@ -13,3 +13,5 @@ deploy:
   app: lit-dusk-15726
   on:
     repo: Pulperi/ratebeeer
+env:
+- BEER_APP_APIKEY=0b642c4016d0413331596c03e7f9b0e5
