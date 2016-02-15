@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]
   resources :places, only: [:index, :show]
+  resources :styles
 
   #search routes
   post 'places', to:'places#search'

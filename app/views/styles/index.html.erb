@@ -1,0 +1,10 @@
+<h1>Beer Styles:</h1>
+
+<ul>
+<% @styles.each do |style| %>
+    <li><%= link_to style.name, style %></li>
+<% end %>
+</ul>
+<p>
+  <%= link_to 'New Style', new_style_path if current_user %>
+</p>

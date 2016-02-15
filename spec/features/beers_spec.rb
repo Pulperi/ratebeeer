@@ -4,6 +4,7 @@ include Helpers
 
 describe 'Beer' do
   let!(:brewery) { FactoryGirl.create :brewery, name:'Koff' }
+  let!(:style) { FactoryGirl.create :style, name:'Lager' }
   let!(:user) { FactoryGirl.create :user }
 
   describe 'create new beer' do
@@ -14,7 +15,7 @@ describe 'Beer' do
     it 'when creating with blank name is not added to brewery or beer collection' do
       visit new_beer_path
       fill_in('beer_name', with:nil)
-      select('Lager', from:'beer[style]')
+      select('Lager', from:'beer[style_id]')
       select('Koff', from:'beer[brewery_id]')
 
       expect{
@@ -28,7 +29,7 @@ describe 'Beer' do
     it 'when created is registered to brewery and added to beer collection' do
       visit new_beer_path
       fill_in('beer_name', with:'Bisse')
-      select('Lager', from:'beer[style]')
+      select('Lager', from:'beer[style_id]')
       select('Koff', from:'beer[brewery_id]')
 
       expect{

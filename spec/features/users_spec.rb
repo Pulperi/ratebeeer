@@ -34,10 +34,12 @@ describe 'User' do
 
   describe 'on user page' do
     let!(:brewery) { FactoryGirl.create :brewery, name:'Koff' }
-    let!(:brewery2) { FactoryGirl.create :brewery, name: 'Koff2'}
-    let!(:beer1) { FactoryGirl.create :beer, name:'iso 3', style:'Piss', brewery:brewery }
-    let!(:beer2) { FactoryGirl.create :beer, name:'Karhu', style:'Lager', brewery:brewery }
-    let!(:beer3) { FactoryGirl.create :beer, name:'Karhu2', style:'Piss', brewery:brewery2 }
+    let!(:brewery2) { FactoryGirl.create :brewery, name:'Koff2'}
+    let!(:style1) { FactoryGirl.create :style, name:'Piss' }
+    let!(:style2) { FactoryGirl.create :style, name:'Lager' }
+    let!(:beer1) { FactoryGirl.create :beer, name:'iso 3', style:style1, brewery:brewery }
+    let!(:beer2) { FactoryGirl.create :beer, name:'Karhu', style:style2, brewery:brewery }
+    let!(:beer3) { FactoryGirl.create :beer, name:'Karhu2', style:style1, brewery:brewery2 }
     let!(:rating1) { FactoryGirl.create :rating, score:5,  beer:beer1, user:user}
     let!(:rating2) { FactoryGirl.create :rating, score:10,  beer:beer2, user:user}
     let!(:rating2) { FactoryGirl.create :rating, score:19,  beer:beer3, user:user}
