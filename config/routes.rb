@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   resources :breweries
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]
+  resources :places, only: [:index, :show]
 
   #search routes
-  get 'places', to:'places#index'
   post 'places', to:'places#search'
 
   root 'breweries#index'

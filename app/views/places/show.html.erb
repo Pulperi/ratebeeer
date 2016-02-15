@@ -1,0 +1,14 @@
+<h1><%= @place.name %></h1>
+<p>
+  <%= @place.street %>
+</p>
+<p>
+  <%= @place.zip %>
+  <%= @place.city %>
+</p>
+<iframe
+  width='450'
+  height='250'
+  frameborder='0' style='border:0'
+  src="https://www.google.com/maps/embed/v1/search?key=AIzaSyD4T1WAONy8EFkEQhX2qeh29A2w2QEvir4&q=<%= ERB::Util.url_encode("#{@place.name},#{@place.street},#{@place.city},#{@place.zip},#{@place.country}") %>" allowfullscreen>
+</iframe>
