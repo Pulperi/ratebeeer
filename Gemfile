@@ -20,6 +20,7 @@ group :production do
 end
 
 group :test do
+  gem 'webmock'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
