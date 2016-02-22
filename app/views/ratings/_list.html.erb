@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th colspan="1"></th>
+    <th>average</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% list_items.each do |item| %>
+      <tr>
+        <td><%= link_to item.name, item %></td>
+        <td><%= number_with_precision item.average_rating, :precision => 1 %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

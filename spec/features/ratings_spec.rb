@@ -32,19 +32,15 @@ describe 'Rating' do
 
     it 'should not have any ratings before created' do
       visit ratings_path
-      expect(page).to have_content 'Number of ratings 0'
+      save_and_open_page
+      expect(page).to have_content 'No ratings added yet'
     end
 
     describe 'after adding ratings to system' do
       let!(:rating1) { FactoryGirl.create :rating, score:5,  beer:beer1, user:user}
       let!(:rating2) { FactoryGirl.create :rating, score:10,  beer:beer2, user:user}
 
-      it 'should say 2 ratings on page' do
-        visit ratings_path
-        expect(page).to have_content 'Number of ratings 2'
-      end
-
-      it 'list should contain name, score and name of the rater' do
+      it 'recent ratings -list should contain name, score and name of the rater' do
         visit ratings_path
         expect(page).to have_content "#{rating1.beer} #{rating1.score} #{user.username}"
       end

@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>Beer</th>
+    <th>Score</th>
+    <th>Rater</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% ratings_list.each do |rating| %>
+      <tr>
+        <td><%= link_to rating.beer, rating.beer %></td>
+        <td><%= rating.score %></td>
+        <td><%= link_to rating.user.username, rating.user %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
