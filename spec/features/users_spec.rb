@@ -47,7 +47,7 @@ describe 'User' do
     it 'should list all the users ratings' do
       visit user_path(user)
       user.ratings.each do |r|
-        expect(page).to have_content "#{r}"
+        expect(page).to have_content "#{r.beer} #{r.score}"
       end
       # save_and_open_page
     end

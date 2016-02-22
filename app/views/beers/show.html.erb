@@ -30,9 +30,9 @@
     <%= form_for(@rating) do |f| %>
         <%= f.hidden_field :beer_id %>
         score: <%= f.number_field :score %>
-        <%= f.submit %>
+        <%= f.submit class: 'btn btn-primary' %>
     <% end %>
 <% end %>
 
-<% if current_user %><%= link_to 'Edit', edit_beer_path(@beer) %> |<% end %>
-<%= link_to 'Back', beers_path %>
+<% if current_user %><%= link_to 'Edit', edit_beer_path(@beer), class:'btn btn-warning' %> |<% end %>
+<%= link_to 'Back', beers_path, class:'btn btn-default' %>

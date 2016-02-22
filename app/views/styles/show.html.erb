@@ -1,11 +1,14 @@
 <h1><%= @style.name %></h1>
 <p><%= @style.desc %></p>
-<strong>beers</strong>
-<ul>
+<strong>Beers</strong>
+<ul class="list-group">
   <% @style.beers.each do |beer| %>
-      <li><%= link_to beer.name, beer %> by <%= link_to beer.brewery.name, beer.brewery %></li>
+      <li class="list-group-item"><%= link_to beer.name, beer %> by <%= link_to beer.brewery.name, beer.brewery %></li>
   <% end %>
 </ul>
 
-<% if current_user %><%= link_to 'Edit', edit_style_path(@style) %> | <%= link_to 'Destroy', @style, method: :delete, data: { confirm: 'Are you sure?' } %> <% end %>
-<%= link_to 'Back', styles_path %>
+<% if current_user %>
+  <%= link_to 'Edit', edit_style_path(@style), class:'btn btn-warning'%> |
+  <%= link_to 'Destroy', @style, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %> |
+<% end %>
+<%= link_to 'Back', styles_path, class:'btn btn-default' %>

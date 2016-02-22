@@ -2,9 +2,23 @@
   List of ratings
 </h2>
 <p>Number of ratings <%= @ratings.count %></p>
-<ul>
-  <% @ratings.each do |rating| %>
-      <li> <%= rating %> <%= link_to "#{rating.user.username}", rating.user %> </li>
-  <% end %>
-</ul>
-<%= link_to 'New Rating', new_rating_path if current_user %>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Beer</th>
+    <th>Rating</th>
+    <th>Rater</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @ratings.each do |rating| %>
+      <tr>
+        <td><%= rating.beer %></td>
+        <td><%= rating.score %></td>
+        <td><%= link_to "#{rating.user.username}", rating.user %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Rating', new_rating_path, class:'btn btn-primary' if current_user %>

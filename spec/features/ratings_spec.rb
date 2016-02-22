@@ -46,7 +46,7 @@ describe 'Rating' do
 
       it 'list should contain name, score and name of the rater' do
         visit ratings_path
-        expect(page).to have_content "#{rating1} #{user.username}"
+        expect(page).to have_content "#{rating1.beer} #{rating1.score} #{user.username}"
       end
     end
   end
@@ -58,7 +58,7 @@ describe 'Rating' do
     it 'should list all the users ratings' do
       visit user_path(user)
       user.ratings.each do |r|
-        expect(page).to have_content "#{r}"
+        expect(page).to have_content "#{r.beer} #{r.score}"
       end
       # save_and_open_page
     end
@@ -66,16 +66,16 @@ describe 'Rating' do
     it 'should not list other users ratings' do
       rating3 = FactoryGirl.create :rating, score: 5, beer:beer2, user: FactoryGirl.create(:user, username: 'Paavo')
       visit user_path(user)
-      expect(page).not_to have_content "#{rating3}"
+      expect(page).not_to have_content "#{rating3.beer} #{rating3.score}"
     end
 
     it 'clicking delete should remove the rating from page' do
       visit user_path(user)
+      expect(page).to have_content "#{rating2.beer} #{rating2.score}"
       expect{
-        # find(:xpath, "//a[@href='/ratings/#{rating2.id}']").click
         find(:xpath, "//a[@href='#{rating_path(rating2)}']").click
       }.to change{user.ratings.count}.by(-1)
-      expect(page).not_to have_content "#{rating2}"
+      expect(page).not_to have_content "#{rating2.beer} #{rating2.score}"
     end
   end
 

@@ -14,7 +14,7 @@
     <% end %>
 
     <%= f.select :beer_club_id, options_from_collection_for_select(@beer_clubs, :id, :to_s) %>
-    <%= f.submit %>
+    <%= f.submit class:'btn btn-primary' %>
 <% end %>
 
-<%= link_to 'Back', memberships_path %>
+<%= link_to 'Back', memberships_path, class:'btn btn-default' %>

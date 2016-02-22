@@ -14,6 +14,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
 
+group :development do
+  gem 'rails_layout'
+end
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
@@ -26,6 +30,9 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
 end
+
+# Bootstrap
+gem 'bootstrap-sass'
 
 # Ruby version
 ruby '2.3.0'
