@@ -3,7 +3,11 @@ class Brewery < ActiveRecord::Base
   require 'date'
 
   validate :year, :validate_found_year
+  # validates :year, numericality: { less_than_or_equal_to: ->(_) { Time.now.year} }
   validates :name, uniqueness: false, length: { minimum: 1 }
+
+  scope :active, -> { where active:true }
+  scope :retired, -> { where active:[nil, false] }
 
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
