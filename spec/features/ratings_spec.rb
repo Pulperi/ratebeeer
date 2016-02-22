@@ -32,7 +32,6 @@ describe 'Rating' do
 
     it 'should not have any ratings before created' do
       visit ratings_path
-      save_and_open_page
       expect(page).to have_content 'No ratings added yet'
     end
 

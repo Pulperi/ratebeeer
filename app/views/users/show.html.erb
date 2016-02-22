@@ -18,7 +18,7 @@
       User has not rated anything!
   <% else %>
     <p>
-      Has made <%= pluralize(@user.ratings.count, 'rating', 'ratings') %>, average <%= number_with_precision @user.average_rating, :precision => 2 %>
+      Has made <%= pluralize(@user.ratings.count, 'rating', 'ratings') %>, average <%= round @user.average_rating %>
     </p>
     <p>
       Based on his ratings <%= @user.favorite_style %> is his favorite kind of beer and <%= @user.favorite_brewery.name %> is his favorite brewery.

@@ -1,5 +1,12 @@
 <h1><%= @style.name %></h1>
 <p><%= @style.desc %></p>
+<p>
+  <% if @style.ratings.empty? %>
+      Style has not been rated!
+<% else %>
+      Has <%= pluralize(@style.ratings.count, 'rating', 'ratings') %>, average <%= round @style.average_rating %>
+<% end %>
+</p>
 <strong>Beers</strong>
 <ul class="list-group">
   <% @style.beers.each do |beer| %>
@@ -7,8 +14,5 @@
   <% end %>
 </ul>
 
-<% if current_user %>
-  <%= link_to 'Edit', edit_style_path(@style), class:'btn btn-warning'%> |
-  <%= link_to 'Destroy', @style, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %> |
-<% end %>
-<%= link_to 'Back', styles_path, class:'btn btn-default' %>
+<%= edit_and_destroy_buttons(@style, styles_path) %>
+
