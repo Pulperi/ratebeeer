@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_active]
+  before_action :ensure_that_admin, only: [:toggle_active]
 
   # GET /users
   # GET /users.json
@@ -49,6 +50,12 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def toggle_active
+    @user.update_attribute :deactive, (not @user.deactive)
+    new_status = @user.deactive? ? 'frozen' : 'unfrozen'
+    redirect_to :back, notice:"User account is now #{new_status}"
   end
 
   # DELETE /users/1

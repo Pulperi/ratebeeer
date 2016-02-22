@@ -11,11 +11,16 @@ class ApplicationController < ActionController::Base
     rescue ActiveRecord::RecordNotFound
       return nil
     end
-   end
+  end
   def clear_current_user
     session.clear
   end
   def ensure_that_signed_in
     redirect_to signin_path, notice:'you should be signed in' if not current_user
+  end
+
+  def ensure_that_admin
+    ensure_that_signed_in
+    redirect_to :back, notice:'operation available only to admin accounts' if not current_user.admin
   end
 end

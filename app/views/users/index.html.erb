@@ -13,8 +13,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.username %></td>
-        <td><%= link_to 'Show', user, class:'btn btn-primary' %></td>
+        <td><%= link_to user.username, user %></td>
+        <td>
+          <% if user.deactive %>
+              <span class="label label-info">account frozen</span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -29,13 +29,16 @@ class User < ActiveRecord::Base
   end
 
   def favorite_style
-    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
-    styles_with_average_ratings.max_by {|k, v| v}.first
+    favorite(:style)
   end
 
   def favorite_brewery
-    return nil if ratings.empty?  # palautetaan nil jos reittauksia ei ole
-    breweries_with_average_ratings.max_by {|k, v| v}.first
+    favorite(:brewery)
+  end
+
+  def favorite(category)
+    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
+    items_with_average_ratings(category).max_by {|k, v| v}.first
   end
 
   def self.top(n)
@@ -45,13 +48,8 @@ class User < ActiveRecord::Base
 
   # Helper methods
 
-  def styles_with_average_ratings
-    hash = ratings.group_by {|r| r.beer.style}
-    hash.update(hash) {|k, v| v.map{|r| r.score}.sum.to_f/v.count}
-  end
-
-  def breweries_with_average_ratings
-    hash = ratings.group_by {|r| r.beer.brewery}
-    hash.update(hash) {|k, v| v.map{|r| r.score}.sum.to_f/v.count}
+  def items_with_average_ratings (category)
+    hash = ratings.group_by { |r| r.beer.send(category) }
+    hash.update(hash) { |k, v| v.map{ |r| r.score }.sum.to_f/v.count }
   end
 end
