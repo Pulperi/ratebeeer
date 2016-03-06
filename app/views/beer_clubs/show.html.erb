@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <h1>
   <%= @beer_club.name %>, <%= @beer_club.city %>
 </h1>
@@ -8,12 +7,27 @@
   <%= @beer_club.founded %>
 </p>
 
-<strong>Members:</strong>
+<h2>Members:</h2>
 <ul class="list-group">
-  <% @beer_club.members.each do |member| %>
+  <% @active_members.each do |member| %>
     <li class="list-group-item"><%= link_to "#{member.username}", member %> </li>
   <% end %>
 </ul>
+
+<% if @applications.length > 0 %>
+<h2>Outstanding applications:</h2>
+<ul class="list-group">
+  <% @applications.each do |application| %>
+    <li class="list-group-item">
+      <%= link_to "#{application.user.username}", application.user %>
+      <% if @membership && @membership.active %>
+          <%= link_to 'confirm', toggle_active_membership_path(application.id), method: :post, class:'btn btn-primary' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
+
 <% if @show_join_button %>
   <h4>Join the club</h4>
   <%= form_for(@membership) do |f| %>

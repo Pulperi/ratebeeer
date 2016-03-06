@@ -12,6 +12,9 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+    # byebug
+    @active_members = @beer_club.memberships.where(:active => true).map { |m| m.user }
+    @applications = @beer_club.memberships.where(:active => [false, nil])
     if current_user
       @membership = Membership.where(:user_id => current_user.id, :beer_club_id => @beer_club.id).first
       if @show_join_button = @membership.nil?
@@ -38,6 +41,7 @@ class BeerClubsController < ApplicationController
 
     respond_to do |format|
       if @beer_club.save
+        Membership.create(beer_club_id: @beer_club.id, user_id: current_user.id, active: true)
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else

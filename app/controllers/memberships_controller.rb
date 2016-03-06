@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :toggle_active]
 
   # GET /memberships
   # GET /memberships.json
@@ -40,6 +40,20 @@ class MembershipsController < ApplicationController
           format.html { render :new }
           format.json { render json: @membership.errors, status: :unprocessable_entity }
         end
+      end
+    end
+  end
+
+  def toggle_active
+    if current_user.nil?
+      redirect_to beer_clubs_path
+    else
+      if not current_user.memberships.where(:beer_club_id => @membership.beer_club_id, :active => true).first.nil?
+        @membership.active = true
+        @membership.save
+        redirect_to :back, notice:"#{@membership.user.username} is now a member of #{@membership.beer_club.name}"
+      else
+        redirect_to beer_clubs_path
       end
     end
   end

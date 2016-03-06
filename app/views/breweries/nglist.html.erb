@@ -1,21 +1,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
 <script>
-  var myApp = angular.module('myApp', []);
+    var myApp = angular.module('myApp', []);
 
-  myApp.controller("BreweriesController", function($scope, $http) {
-    $http.get('breweries.json').success( function(data, status, headers, config) {
-      $scope.breweries = data;
+    myApp.controller("BreweriesController", function ($scope, $http) {
+      $http.get('breweries.json').success(function (data, status, headers, config) {
+        $scope.breweries = data;
+      });
+
+      $scope.order = 'name';
+
+      $scope.sort_by = function (order) {
+        $scope.order = order;
+        console.log(order);
+      }
+
+      $scope.searchText = '';
     });
-
-    $scope.order = 'name';
-
-    $scope.sort_by = function (order){
-      $scope.order = order;
-      console.log(order);
-    }
-
-    $scope.searchText = '';
-  });
 </script>
 
 <h2>Breweries</h2>

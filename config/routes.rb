@@ -4,10 +4,17 @@ Rails.application.routes.draw do
   resources :users do
     post 'toggle_active', on: :member
   end
+
+  resources :memberships do
+    post 'toggle_active', on: :member
+  end
+
   resources :beers
   resources :breweries do
     post 'toggle_activity', on: :member
   end
+
+
 
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]

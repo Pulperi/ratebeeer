@@ -1,6 +1,6 @@
 class Membership < ActiveRecord::Base
 
-  validate :beer_club_id, :not_a_duplicate
+  validate :beer_club_id, :not_a_duplicate, on: :create
 
   belongs_to :beer_club
   belongs_to :user

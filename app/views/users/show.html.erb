@@ -9,13 +9,26 @@
 </h1>
 
 <p>
+  <h3>Beer clubs</h3>
   <% if @user.beer_clubs.empty? %>
-      User not a member of any beerclubs.
+    <strong>User not a member of any beerclubs.</strong>
   <% else %>
-      User is a member of
-      <% @user.beer_clubs.each do |club| %>
-        <%= link_to "#{club.name}", club %>
-      <% end %>
+    <% if @active_memberships.length > 0 %>
+        <strong>member of</strong>
+        <ul>
+          <% @active_memberships.each do |club| %>
+                <li><%= link_to "#{club.name}", club %></li>
+          <% end %>
+        </ul>
+    <% end %>
+    <% if @applications.length > 0 %>
+        <strong>applied membership of</strong>
+        <ul>
+          <% @applications.each do |club| %>
+                <li><%= link_to "#{club.name}", club %></li>
+          <% end %>
+        </ul>
+    <% end %>
   <% end %>
 </p>
 

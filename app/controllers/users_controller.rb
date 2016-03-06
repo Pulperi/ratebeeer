@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @active_memberships = @user.memberships.where(:active => true).map { |m| m.beer_club }
+    @applications = @user.memberships.where(:active => [false, nil]).map { |m| m.beer_club }
   end
 
   # GET /users/new
