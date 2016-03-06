@@ -24,6 +24,8 @@ group :production do
 end
 
 group :test do
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
   gem 'webmock'
   gem 'factory_girl_rails'
   gem 'capybara'
