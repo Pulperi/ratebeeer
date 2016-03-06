@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy, :toggle_activity]
-  before_action :ensure_that_signed_in, except: [:index, :show, :destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show, :destroy, :nglist]
   before_action :ensure_that_admin, only: [:destroy]
 
   # GET /breweries
@@ -20,6 +20,9 @@ class BreweriesController < ApplicationController
         @retired_breweries = Brewery.retired.order(year: sort)
     end
 
+  end
+
+  def nglist
   end
 
   # GET /breweries/1

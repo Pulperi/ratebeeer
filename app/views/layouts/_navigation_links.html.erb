@@ -1,7 +1,23 @@
 <%# add navigation links to this file %>
-<li><%= link_to 'Breweries', breweries_path %></li>
-<li><%= link_to 'Beers', beers_path %></li>
-<li><%= link_to 'Beerlist', beerlist_path %></li>
+<li role="presentation" class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+    Breweries<span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to 'Breweries', breweries_path %></li>
+    <li><%= link_to 'Ng-breweries', ngbrewerylist_path %></li>
+  </ul>
+</li>
+<li role="presentation" class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+    Beers<span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to 'Beers', beers_path %></li>
+    <li><%= link_to 'Beerlist', beerlist_path %></li>
+    <li><%= link_to 'Ng-beerlist', ngbeerlist_path %></li>
+  </ul>
+</li>
 <li><%= link_to 'Styles', styles_path %></li>
 <li><%= link_to 'Ratings', ratings_path %></li>
 <li><%= link_to 'Users', users_path %></li>
