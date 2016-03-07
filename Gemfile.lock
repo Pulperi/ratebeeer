@@ -119,6 +119,8 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
     rack (1.6.4)
+    rack-mini-profiler (0.9.9.2)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -246,6 +248,7 @@ DEPENDENCIES
   jquery-turbolinks
   launchy
   pg
+  rack-mini-profiler
   rails (= 4.2.5)
   rails_12factor
   rails_layout

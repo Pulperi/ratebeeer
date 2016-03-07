@@ -379,6 +379,8 @@
         null,
         null,
         1,
+        21,
+        21,
         null,
         null,
         null,
@@ -778,6 +780,10 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "/home/henri/RailsCourse/ratebeeer/app/controllers/styles_controller.rb": [
@@ -930,9 +936,23 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ]
     },
-    "timestamp": 1457293671
+    "timestamp": 1457302597
   }
 }

@@ -1,4 +1,5 @@
 class BeersController < ApplicationController
+  before_action :skip_if_cached, only:[:index]
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
   before_action :set_helpers, only: [:new, :edit, :create]
   before_action :ensure_that_signed_in, except: [:index, :show, :destroy, :list, :nglist]
@@ -9,9 +10,9 @@ class BeersController < ApplicationController
   def index
     order = params[:order] || 'name'
     @beers = case order
-               when 'name' then Beer.order(:name)
-               when 'brewery' then Beer.includes(:brewery).order('breweries.name')
-               when 'style' then Beer.includes(:style).order('styles.name')
+               when 'name' then Beer.includes([:brewery, :style]).order(:name)
+               when 'brewery' then Beer.includes([:brewery, :style]).order('breweries.name')
+               when 'style' then Beer.includes([:brewery, :style]).order('styles.name')
              end
   end
 
@@ -43,9 +44,9 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
-
     respond_to do |format|
       if @beer.save
+        clear_beerlist
         format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: @beer }
       else
@@ -60,6 +61,7 @@ class BeersController < ApplicationController
   def update
     respond_to do |format|
       if @beer.update(beer_params)
+        clear_beerlist
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
         format.json { render :show, status: :ok, location: @beer }
       else
@@ -72,6 +74,7 @@ class BeersController < ApplicationController
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
+    clear_beerlist
     @beer.destroy
     respond_to do |format|
       format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
@@ -94,4 +97,14 @@ class BeersController < ApplicationController
     def beer_params
       params.require(:beer).permit(:name, :style_id, :brewery_id)
     end
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "beerlist-#{@order}"  )
+  end
+
+  def clear_beerlist
+    ['beerlist-name', 'beerlist-brewery', 'beerlist-style'].each {|f| expire_fragment(f) }
+  end
+
 end

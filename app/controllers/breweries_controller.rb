@@ -6,18 +6,18 @@ class BreweriesController < ApplicationController
   # GET /breweries
   # GET /breweries.json
   def index
-    order = params[:order] || 'name'
-    sort = params[:sort] || 'asc'
+    @order = params[:order] || 'name'
+    @sort = params[:sort] || 'asc'
 
-    session[:breweries_next_sort] = sort == 'asc' ? 'desc' : 'asc'
+    session[:breweries_next_sort] = @sort == 'asc' ? 'desc' : 'asc'
 
-    case order
+    case @order
       when 'name' then
-        @active_breweries = Brewery.active.order(name: sort)
-        @retired_breweries = Brewery.retired.order(name: sort)
+        @active_breweries = Brewery.active.order(name: @sort)
+        @retired_breweries = Brewery.retired.order(name: @sort)
       when 'year' then
-        @active_breweries = Brewery.active.order(year: sort)
-        @retired_breweries = Brewery.retired.order(year: sort)
+        @active_breweries = Brewery.active.order(year: @sort)
+        @retired_breweries = Brewery.retired.order(year: @sort)
     end
 
   end
@@ -46,6 +46,7 @@ class BreweriesController < ApplicationController
 
     respond_to do |format|
       if @brewery.save
+        clear_brewery_list
         format.html { redirect_to @brewery, notice: 'Brewery was successfully created.' }
         format.json { render :show, status: :created, location: @brewery }
       else
@@ -60,6 +61,7 @@ class BreweriesController < ApplicationController
   def update
     respond_to do |format|
       if @brewery.update(brewery_params)
+        clear_brewery_list
         format.html { redirect_to @brewery, notice: 'Brewery was successfully updated.' }
         format.json { render :show, status: :ok, location: @brewery }
       else
@@ -70,6 +72,7 @@ class BreweriesController < ApplicationController
   end
 
   def toggle_activity
+    clear_brewery_list
     @brewery.update_attribute :active, (not @brewery.active)
     new_status = @brewery.active? ? 'active' : 'retired'
     redirect_to :back, notice:"brewery activity status changed to #{new_status}"
@@ -78,6 +81,7 @@ class BreweriesController < ApplicationController
   # DELETE /breweries/1
   # DELETE /breweries/1.json
   def destroy
+    clear_brewery_list
     @brewery.destroy
     respond_to do |format|
       format.html { redirect_to breweries_url, notice: 'Brewery was successfully destroyed.' }
@@ -99,5 +103,9 @@ class BreweriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
+    end
+
+    def clear_brewery_list
+      %w(brewerieslist-year-desc brewerieslist-year-asc brewerieslist-name-desc brewerieslist-name-asc).each {|f| expire_fragment(f)  }
     end
 end

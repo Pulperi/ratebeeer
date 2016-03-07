@@ -6,7 +6,9 @@
   <thead>
     <tr>
       <th>Username</th>
-      <th colspan="1"></th>
+      <th> rated beers </th>
+      <th> total ratings </th>
+      <th></th>
     </tr>
   </thead>
 
@@ -14,6 +16,8 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.username, user %></td>
+        <td><%= user.beers.size %></td>
+        <td><%= user.ratings.size %></td>
         <td>
           <% if user.deactive %>
               <span class="label label-info">account frozen</span>

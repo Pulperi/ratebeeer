@@ -1,34 +1,44 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Beers</h1>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th><%= link_to 'Name', beers_path(order:'name') %></th>
-      <th><%= link_to 'Style', beers_path(order:'style') %></th>
-      <th><%= link_to 'Brewery', beers_path(order:'brewery') %></th>
-    </tr>
-  </thead>
+<div style="border-style: solid;">
+  beerlist-name: <%= ActionController::Base.new.fragment_exist?( 'beerlist-name' ) %>
+  <br>
+  beerlist-style: <%= ActionController::Base.new.fragment_exist?( 'beerlist-style' ) %>
+  <br>
+  beerlist-brewery: <%= ActionController::Base.new.fragment_exist?( 'beerlist-brewery' ) %>
+  <br>
+  current: <%= "beerlist-#{@order}" %>
+</div>
 
-  <tbody>
-    <% @beers.each do |beer| %>
-      <%= byebug if beer.brewery.nil? %>
+
+<% cache "beerlist-#{@order}", skip_digest: true do %>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= link_to beer.name, beer %></td>
-        <td><%= link_to beer.style, beer.style %></td>
-        <td><%= link_to beer.brewery.name, beer.brewery %></td>
-        <% if current_user %>
-          <td>
-            <%= link_to 'Edit', edit_beer_path(beer), class:'btn btn-warning' %>
-            <%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?'}, class:'btn btn-danger' %>
-          </td>
-        <% end %>
+        <th><%= link_to 'Name', beers_path(order:'name') %></th>
+        <th><%= link_to 'Style', beers_path(order:'style') %></th>
+        <th><%= link_to 'Brewery', beers_path(order:'brewery') %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @beers.each do |beer| %>
+        <%= byebug if beer.brewery.nil? %>
+        <tr>
+          <td><%= link_to beer.name, beer %></td>
+          <td><%= link_to beer.style, beer.style %></td>
+          <td><%= link_to beer.brewery.name, beer.brewery %></td>
+          <% if current_user %>
+            <td>
+              <%= link_to 'Edit', edit_beer_path(beer), class:'btn btn-warning' %>
+              <%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?'}, class:'btn btn-danger' %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 <br>
 
 <%= link_to 'New Beer', new_beer_path, class:'btn btn-primary' if current_user %>
