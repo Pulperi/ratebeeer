@@ -1,13 +1,13 @@
 class RatingsController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index]
+  before_action :skip_if_cached, only:[:index]
 
   def index
-    @recent_ratings = Rating.recent(5)
+    @recent_ratings = Rating.recent(5).includes([{ beer: :brewery }, :user])
     @most_active_users = User.top(5)
     @best_beers = Beer.top(3)
     @best_breweries = Brewery.top(3)
     @best_styles = Style.top(3)
-    render :index
   end
 
   def new
@@ -35,5 +35,9 @@ class RatingsController < ApplicationController
   private
   def rating_params
     params.require(:rating).permit(:beer_id, :score)
+  end
+
+  def skip_if_cached
+    return render :index if fragment_exist?('ratings-stats')
   end
 end

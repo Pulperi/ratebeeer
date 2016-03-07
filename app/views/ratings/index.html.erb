@@ -2,37 +2,42 @@
   <div class="row" style="margin-left: 0px;margin-right: 0px;">
     <div class="col-md-15">
       <h1>Rating statistics</h1>
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Best beers</h2>
-          <%= render 'list', list_items: @best_beers %>
-        </div>
-        <div class="col-md-4">
-          <h2>Best breweries</h2>
-          <%= render 'list', list_items: @best_breweries %>
-        </div>
-        <div class="col-md-4">
-          <h2>Best styles</h2>
-          <%= render 'list', list_items: @best_styles %>
-        </div>
+      <div style="border-style: solid;">
+        ratings-stats: <%= ActionController::Base.new.fragment_exist?('ratings-stats') %>
+        <br>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h2>Most active users</h2>
-          <%= render 'ulist', user_list: @most_active_users %>
+      <% cache 'ratings-stats', expires_in:2.minutes, skip_digest: true do %>
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Best beers</h2>
+            <%= render 'list', list_items: @best_beers %>
+          </div>
+          <div class="col-md-4">
+            <h2>Best breweries</h2>
+            <%= render 'list', list_items: @best_breweries %>
+          </div>
+          <div class="col-md-4">
+            <h2>Best styles</h2>
+            <%= render 'list', list_items: @best_styles %>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8">
-          <h2>Recent ratings</h2>
-          <% if @recent_ratings.count > 0 %>
-            <%= render 'rlist', ratings_list: @recent_ratings %>
-          <% else %>
-             No ratings added yet.
-          <% end %>
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Most active users</h2>
+            <%= render 'ulist', user_list: @most_active_users %>
+          </div>
         </div>
-      </div>
-
+        <div class="row">
+          <div class="col-md-8">
+            <h2>Recent ratings</h2>
+            <% if @recent_ratings.count > 0 %>
+              <%= render 'rlist', ratings_list: @recent_ratings %>
+            <% else %>
+               No ratings added yet.
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <%= link_to 'New Rating', new_rating_path, class:'btn btn-primary' if current_user %>
     </div>
   </div>
